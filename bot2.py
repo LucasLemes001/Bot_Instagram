@@ -73,6 +73,9 @@ def curtir_publicacao():
 
 #  Passo 1: Alert you that we're starting the automation
 mensagem_de_inicio('Curtidas e Comentários Instagram')
+usuario = pyautogui.prompt(text='',title='Digite o Usuário da Conta Instragram: ')
+senha = pyautogui.password(text='', title='Digite a Senha do Usuário: ',mask='*')
+pagina_alvo = pyautogui.prompt(text='',title='Digite A Pagina Alvo do Bot: ')
 
 #    Passo 2: Acess The Instagram website. Suposing that we're needing chance the accont
 #             Write Username and Passwords, then login
@@ -80,21 +83,29 @@ webbrowser.open_new_tab('https://www.instagram.com/')
 sleep(4)
 localizar_e_mover('trocar_de_conta.png')
 pyautogui.click()
-login()   #>>>>>  COLOCAR, LOGIN E SENHA DA CONTA QUE DESEJA LOGAR <<<<<<<
+
+login(usuario,senha)   #>>>>>  COLOCAR, LOGIN E SENHA DA CONTA QUE DESEJA LOGAR <<<<<<<
 
 #  Passo 3: Find the page that you want.
 localizar_e_mover('botao_pesquisa.png')
 pyautogui.click()
 sleep(1)
 # pyautogui.typewrite(choice())  # >>>>>>>  Aqui PODERÁ DIGITAR A PAGINA QUE QUER LOCALIZAR  <<<<<<<<<<
-pyautogui.typewrite()  # >>>>>>>  Aqui PODERÁ DIGITAR A PAGINA QUE QUER LOCALIZAR  <<<<<<<<<<
+pyautogui.typewrite(pagina_alvo)  # >>>>>>>  Aqui PODERÁ DIGITAR A PAGINA QUE QUER LOCALIZAR  <<<<<<<<<<
 pyautogui.press('enter',presses=3,interval=1.5)
 sleep(3)
 
 #   Passo 4: #Take the First post (fixed or not)
-localizar_e_mover('publicacoes1.png','publicacoes2.png')
-pyautogui.move(-120,120,duration=1)
-pyautogui.click()
+
+pyautogui.moveTo(1064,502,duration=0.5)
+try:
+    localizar_e_mover('publicacoes1.png','publicacoes2.png')
+    pyautogui.move(-120,120,duration=1)
+    pyautogui.click()
+except:
+    pyautogui.moveTo(818,728,duration=0.5)
+    pyautogui.click()
+
     
 #    Passo 5,6,7,8: #If the photo its Already liked, we'll just close. If doesn't
 #                   We'll going to like the photo and right Afeter leave a comment. (You can choose what comment)
